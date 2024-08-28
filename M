@@ -1,0 +1,209 @@
+#include <iostream>
+enum enChoose {Calculate=1, Factorial=2, ODD=3 , EVEN=4 };
+
+ enChoose ReadTheChoice (){
+ //  enChoose Choose ;
+  int Choice ;
+std::cout << 
+  "\tselect your operation type "<<std::endl ;
+
+std::cout << 
+   "\n1- Simple Calculate \n" ;
+std::cout <<
+   "\n2- Factorial of a number \n" ;
+std::cout <<
+   "\n3- sum of odd numbers 1 To N\n";
+std::cout <<
+ "\n4- sum of even numbers 1 To N\n";
+
+   std::cout << "\n select: " ; 
+  std::cin >> Choice ;
+
+   return (enChoose)Choice ;
+  }
+
+struct stcalculate_info
+{
+float nums[2] ;
+std::string opType = "" ;
+} ;
+
+stcalculate_info ReadCalcData () {
+
+  stcalculate_info info ;
+  
+std::cout <<
+  "\nenter first number : " ;
+  std::cin >> info.nums[0] ;
+
+std::cout <<
+  "\nenter operation type : " ;
+  std::cin >> info.opType ;
+
+std::cout <<
+  "\nenter second number : " ;
+  std::cin >> info.nums[1] ;
+
+  return info ;
+  }
+
+double Addition
+  (stcalculate_info info ) {
+  return
+    info.nums[0] + info.nums[1] ;
+  }
+
+double Subtract 
+ ( stcalculate_info info ) {
+  return 
+    info.nums[0] - info.nums[1] ;
+  }
+
+
+double Multiplication 
+ ( stcalculate_info info ) {
+  return 
+   info.nums[0] * info.nums[1] ;
+}
+
+double Divide 
+ ( stcalculate_info info ) {
+  return 
+ info.nums[0] / info.nums[1] ;
+  }
+
+
+double CalculateData (stcalculate_info info ){
+
+  if (info.opType == "+" ) 
+       return Addition(info) ;
+
+  else if ( info.opType == "-" )
+       return Subtract(info) ;
+
+  else if 
+    ( info.opType == "×" ||             info.opType == "*" )
+      return Multiplication(info) ;
+
+  else if 
+    ( info.opType == "/" ||              info.opType == "÷" )
+      return Divide(info) ;
+    
+  else return 0 ;
+    
+  }
+
+void PrintCalucResults(double result ){
+
+  std::cout <<std::endl << result << std::endl ;
+  }
+
+    
+enum enoddeven {odd=1 , even =2 };
+    
+  int ReadNum () {
+  int N ;
+  std::cout << "enter a number : ";
+   std::cin >> N ;
+     return N ;
+  }
+
+double FactorialOfN (int N){
+  int i ;
+  double fact=1;
+
+   for ( i=N ; i>=1 ; i-- )
+     {
+       fact *= i ;
+      }
+  return  fact  ;
+  }
+
+void PrintFactorial (double fact){
+  std::cout << "the Factorial is " << fact << std::endl;
+  }
+
+enoddeven CheckOddOrEven (int Number ){
+  if (Number %2 ==0)
+    return enoddeven::even ;
+  else 
+    return enoddeven::odd ;  
+  }
+
+int SumOfOddFrom1ToN (int N ) {
+  int i , sum=0 ;
+
+  for (i=1 ; i <= N ; i++ )
+    {
+      if (CheckOddOrEven(i) == enoddeven::odd)
+        {
+          sum += i ;
+        }
+    }
+  return sum ;
+}
+
+int SumOfEvenFrom1ToN (int N ) {
+  int i , sum=0 ;
+
+  for (i=1 ; i <= N ; i++ )
+    {
+      if (CheckOddOrEven(i) == enoddeven::even)
+        {
+          sum += i ;
+        }
+    }
+  return sum ;
+  }
+
+void PrintEven (int sum ) {
+
+  std::cout << "\n\t sum of even from 1to N : \n " << sum     << std::endl ;
+
+  }
+void Printodd (int sum ) {
+
+  std::cout << "\n\t sum of odd from 1to N : \n " << sum     << std::endl ;
+
+}
+
+void CheckeChoice (enChoose Choose){
+
+  switch (Choose) {
+
+    case enChoose::Calculate:
+      PrintCalucResults(
+        CalculateData(
+          ReadCalcData()));
+      break ;
+
+    case enChoose::Factorial:
+      PrintFactorial(
+        FactorialOfN(
+          ReadNum ()) );
+      break ;
+    
+    
+    case enChoose::ODD:
+      Printodd(
+        SumOfOddFrom1ToN(
+          ReadNum())) ;
+      break ;
+
+    case enChoose::EVEN:
+      PrintEven(
+        SumOfEvenFrom1ToN(
+          ReadNum())) ;
+      break ;
+
+  default : std::cout << "error" ;}
+   }  
+
+
+int main () {
+  
+CheckeChoice(
+  ReadTheChoice()) ;
+
+
+}
